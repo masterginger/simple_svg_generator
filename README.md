@@ -1,2 +1,3 @@
-# simple-python-lib-template
-This is simple python library template which bootstraps an opinionated ready-to-go python library dev env :)
+# simple_svg_generator
+This is a simple helper library for generating SVGs.
+

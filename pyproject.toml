@@ -10,7 +10,7 @@ version = {file = "VERSION"}
 where = ["src"]
 
 [project]
-name = "simple_python_lib"
+name = "simple_svg_generator"
 requires-python = ">= 3.9"
 # Ref: https://packaging.python.org/en/latest/guides/single-sourcing-package-version/#single-sourcing-the-version
 dynamic = ["version"]
