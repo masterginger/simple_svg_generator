@@ -1,3 +1,5 @@
+from xml.dom.minidom import Element
+from simple_svg_generator import generate_svg_element
 from simple_svg_generator.elements.g import g
 from simple_svg_generator.elements.path import path
 from simple_svg_generator.elements.svg import svg
@@ -27,14 +29,7 @@ def sun() -> SVGElement:
     transform = g()
     transform.set_attributes(dict(transform="translate(0 -1028.4)"))
     transform.add_child(path_group)
-    s = svg()
-    s.set_attributes(
-        dict(
-            width="800px",
-            height="800px",
-            viewBox="0 0 24 24",
-            xmlns="http://www.w3.org/2000/svg",
-        )
-    )
+    s = svg("800px", "800px")
+    s.set_view_box("0 0 24 24")
     s.add_child(transform)
     return s

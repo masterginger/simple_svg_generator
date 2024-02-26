@@ -1,4 +1,5 @@
 from simple_svg_generator.elements.g import g
+from simple_svg_generator.elements.path import path
 from simple_svg_generator.elements.svg import svg
 from simple_svg_generator.svg_element import SVGElement
 
@@ -35,8 +36,26 @@ def test_set_attributes():
 def test_svg():
     s = svg()
     assert s._element.tagName == "svg"
+    assert s["width"] == "0"
+    assert s["height"] == "0"
+    s.set_dimensions("100", "200")
+    assert s["width"] == "100"
+    assert s["height"] == "200"
+    assert s["xmlns"] == "http://www.w3.org/2000/svg"
+    s.set_view_box("0 1 2 3")
+    assert s["viewBox"] == "0 1 2 3"
 
 
 def test_g():
     ge = g()
     assert ge._element.tagName == "g"
+    ge.set_transform("rotate(1, 2, 3)")
+    assert ge["transform"] == "rotate(1, 2, 3)"
+
+def test_path():
+    p = path()
+    assert p._element.tagName == "path"
+    p.set_transform("rotate(1, 2, 3)")
+    assert p["transform"] == "rotate(1, 2, 3)"
+    p.set_definition("M 1 2")
+    assert p["d"] == "M 1 2"
