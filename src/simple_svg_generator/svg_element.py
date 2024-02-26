@@ -1,6 +1,6 @@
-from typing import Dict, Self, cast
+from typing import Dict, Optional, cast
 from xml.dom import getDOMImplementation
-from xml.dom.minidom import DOMImplementation, Document, Element
+from xml.dom.minidom import DOMImplementation
 
 
 class SVGElement:
@@ -8,8 +8,10 @@ class SVGElement:
         None, "svg_doc", None
     )
 
-    def __init__(self, tag_name: str) -> None:
-        self._element = self.__class__.xml_doc.createElement(tag_name)
+    def __init__(self, tag_name: Optional[str] = None) -> None:
+        self._element = self.__class__.xml_doc.createElement(
+            tag_name if tag_name else self.__class__.__name__
+        )
 
     def set_attributes(self, attributes: Dict[str, str]) -> None:
         for key, value in attributes.items():
