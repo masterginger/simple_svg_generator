@@ -13,8 +13,8 @@ venv:
 
 .PHONY: lint
 lint:
-	$(BLACK_BIN) src
-	$(MYPY_BIN) src
+	$(BLACK_BIN) src tests
+	$(MYPY_BIN) src tests
 
 .PHONY: test
 test: lint

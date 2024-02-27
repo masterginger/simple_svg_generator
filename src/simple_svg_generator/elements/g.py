@@ -1,6 +1,5 @@
 from simple_svg_generator.svg_element import SVGElement
+from simple_svg_generator.elements.mixins.transform import TransformMixin
 
 
-class g(SVGElement):
-    def set_transform(self, transform: str) -> None:
-        self["transform"] = transform
+class g(SVGElement, TransformMixin): ...

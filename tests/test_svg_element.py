@@ -49,8 +49,13 @@ def test_svg():
 def test_g():
     ge = g()
     assert ge._element.tagName == "g"
+    ge.add_transform("rotate(4, 5, 6)")
+    assert ge["transform"] == "rotate(4, 5, 6)"
     ge.set_transform("rotate(1, 2, 3)")
     assert ge["transform"] == "rotate(1, 2, 3)"
+    ge.add_transform("scale(0.5)")
+    assert ge["transform"] == "rotate(1, 2, 3) scale(0.5)"
+
 
 def test_path():
     p = path()
@@ -59,3 +64,9 @@ def test_path():
     assert p["transform"] == "rotate(1, 2, 3)"
     p.set_definition("M 1 2")
     assert p["d"] == "M 1 2"
+    p.set_stroke_color("red")
+    assert p["stroke"] == "red"
+    p.set_stroke_width("3")
+    assert p["stroke-width"] == "3"
+    p.set_fill_color("blue")
+    assert p["fill"] == "blue"
