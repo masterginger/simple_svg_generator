@@ -1,15 +1,14 @@
+from typing import Self
 from simple_svg_generator.svg_element import SVGElement
 
 
 class svg(SVGElement):
-    def __init__(self, width: str = "0", height: str = "0") -> None:
+    def __init__(self) -> None:
         super().__init__()
-        self["xmlns"] = "http://www.w3.org/2000/svg"
-        self.set_dimensions(width, height)
+        self._element.attributes["xmlns"] = "http://www.w3.org/2000/svg"
 
-    def set_dimensions(self, width: str, height: str) -> None:
-        self["width"] = width
-        self["height"] = height
+    def set_dimensions(self, width: str, height: str) -> Self:
+        return self.set_attributes(dict(width=width, height=height))
 
-    def set_view_box(self, view_box) -> None:
-        self["viewBox"] = view_box
+    def set_view_box(self, view_box) -> Self:
+        return self.set_attribute("viewBox", view_box)

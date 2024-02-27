@@ -4,6 +4,7 @@ PYTHON_BIN = $(VENV_BIN)/python
 PIP_BIN = $(VENV_BIN)/pip
 BLACK_BIN = $(VENV_BIN)/black
 MYPY_BIN = $(VENV_BIN)/mypy
+RUFF_BIN = $(VENV_BIN)/ruff
 COVERAGE_BIN = $(VENV_BIN)/coverage
 
 .PHONY: venv
@@ -14,6 +15,7 @@ venv:
 .PHONY: lint
 lint:
 	$(BLACK_BIN) src tests
+	$(RUFF_BIN) check src tests --fix
 	$(MYPY_BIN) src tests
 
 .PHONY: test

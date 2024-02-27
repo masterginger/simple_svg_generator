@@ -1,14 +1,13 @@
-from simple_svg_generator.elements.mixins.set_attribute_protocol import (
-    SetAttributeProtocol,
-)
+from typing import Self
+from simple_svg_generator.svg_element import SVGElement
 
 
-class StrokeFillMixin:
-    def set_stroke_color(self: SetAttributeProtocol, stroke_color: str) -> None:
-        self["stroke"] = stroke_color
+class StrokeFillMixin(SVGElement):
+    def set_stroke_color(self, stroke_color: str) -> Self:
+        return self.set_attribute("stroke", stroke_color)
 
-    def set_stroke_width(self: SetAttributeProtocol, stroke_width: str) -> None:
-        self["stroke-width"] = stroke_width
+    def set_stroke_width(self, stroke_width: str) -> Self:
+        return self.set_attribute("stroke-width", stroke_width)
 
-    def set_fill_color(self: SetAttributeProtocol, fill_color: str) -> None:
-        self["fill"] = fill_color
+    def set_fill_color(self, fill_color: str) -> Self:
+        return self.set_attribute("fill", fill_color)

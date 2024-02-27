@@ -1,4 +1,5 @@
-from typing import Dict, Optional, cast
+import copy
+from typing import Dict, Optional, Self, cast
 from xml.dom import getDOMImplementation
 from xml.dom.minidom import DOMImplementation
 
@@ -13,18 +14,24 @@ class SVGElement:
             tag_name if tag_name else self.__class__.__name__
         )
 
-    def set_attributes(self, attributes: Dict[str, str]) -> None:
-        for key, value in attributes.items():
-            self._element.attributes[key] = value
-
     def __getitem__(self, key: str) -> str:
         return self._element.attributes[key].value
 
-    def __setitem__(self, key: str, value: str) -> None:
-        self._element.attributes[key] = value
+    def set_attributes(self, attributes: Dict[str, str]) -> Self:
+        new = copy.deepcopy(self)
+        for key, value in attributes.items():
+            new._element.attributes[key] = value
+        return new
 
-    def add_child(self, element: "SVGElement") -> None:
-        self._element.appendChild(element._element)
+    def set_attribute(self, key: str, value: str) -> Self:
+        new = copy.deepcopy(self)
+        new._element.attributes[key] = value
+        return new
+
+    def add_child(self, element: "SVGElement") -> Self:
+        new = copy.deepcopy(self)
+        new._element.appendChild(element._element)
+        return new
 
     @property
     def xml(self) -> str:

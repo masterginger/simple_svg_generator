@@ -1,18 +1,14 @@
-from typing import List, Protocol
-from simple_svg_generator.elements.mixins.set_attribute_protocol import (
-    SetAttributeProtocol,
-)
+from typing import Self
+from simple_svg_generator.svg_element import SVGElement
 
 
-class TransformMixin(SetAttributeProtocol):
-    _transforms: List[str]
+class TransformMixin(SVGElement):
+    def set_transform(self, transform: str) -> Self:
+        return self.set_attribute("transform", transform)
 
-    def set_transform(self, transform: str) -> None:
-        self._transforms: List[str] = []
-        self.add_transform(transform)
-
-    def add_transform(self, transform: str) -> None:
-        if not hasattr(self, "_transforms"):
-            self._transforms = []
-        self._transforms.append(transform)
-        self["transform"] = " ".join(self._transforms)
+    def add_transform(self, transform: str) -> Self:
+        try:
+            new_transform = f"{self['transform']} {transform}"
+        except KeyError:
+            new_transform = transform
+        return self.set_attribute("transform", new_transform)
