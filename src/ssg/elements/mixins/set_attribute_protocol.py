@@ -1,6 +1,0 @@
-from typing import Protocol, Self
-
-
-class SetAttributeProtocol(Protocol):
-    def __getitem__(self, key: str) -> str: ...
-    def set_attribute(self, key: str, value: str) -> Self: ...
