@@ -21,3 +21,11 @@ lint:
 .PHONY: test
 test: lint
 	$(COVERAGE_BIN) run -m pytest && $(COVERAGE_BIN) report -m --fail-under=100 && $(COVERAGE_BIN) html
+
+.PHONY: gen
+gen:
+	@$(PYTHON_BIN) -m ssg gen $(NAME)
+
+.PHONY: gen-and-show
+gen-and-show:
+	@$(PYTHON_BIN) -m ssg gen --show $(NAME)

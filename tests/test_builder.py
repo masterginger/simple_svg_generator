@@ -1,4 +1,4 @@
-from simple_svg_generator.svg_element import SVGElement
+from ssg.svg_element import SVGElement
 
 
 def test_builder_attributes():

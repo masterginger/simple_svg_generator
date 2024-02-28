@@ -10,7 +10,7 @@ version = {file = "VERSION"}
 where = ["src"]
 
 [project]
-name = "simple_svg_generator"
+name = "ssg"
 requires-python = ">= 3.9"
 # Ref: https://packaging.python.org/en/latest/guides/single-sourcing-package-version/#single-sourcing-the-version
 dynamic = ["version"]
@@ -24,7 +24,9 @@ classifiers = [
 ]
 authors = []
 
-dependencies = []
+dependencies = [
+    "invoke==2.2.0",
+]
 
 [project.optional-dependencies]
 dev = [

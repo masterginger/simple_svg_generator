@@ -1,7 +1,7 @@
-from simple_svg_generator.elements.g import g
-from simple_svg_generator.elements.path import path
-from simple_svg_generator.elements.svg import svg
-from simple_svg_generator.svg_element import SVGElement
+from ssg.elements.g import g
+from ssg.elements.path import path
+from ssg.elements.svg import svg
+from ssg.svg_element import SVGElement
 
 
 def sun() -> SVGElement:

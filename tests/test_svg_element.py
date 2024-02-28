@@ -1,8 +1,8 @@
 import pytest
-from simple_svg_generator.elements.g import g
-from simple_svg_generator.elements.path import path
-from simple_svg_generator.elements.svg import svg
-from simple_svg_generator.svg_element import SVGElement
+from ssg.elements.g import g
+from ssg.elements.path import path
+from ssg.elements.svg import svg
+from ssg.svg_element import SVGElement
 
 
 def test_svg_element():
@@ -58,6 +58,20 @@ def test_g():
     assert ge["transform"] == "rotate(1, 2, 3)"
     ge = ge.add_transform("scale(0.5)")
     assert ge["transform"] == "rotate(1, 2, 3) scale(0.5)"
+    ge = ge.translate(1, 2)
+    assert ge["transform"] == "rotate(1, 2, 3) scale(0.5) translate(1, 2)"
+    ge = ge.set_clip_path("abc")
+    assert ge["clip-path"] == "abc"
+    ge = ge.set_transform_origin("center")
+    assert ge["transform-origin"] == "center"
+
+
+def test_g_fit():
+    fit = g.fit(10, 20, 4, 5, 0.5, path())
+    assert (
+        fit.xml
+        == '<g transform="scale(0.4, 0.25)"><g transform-origin="center" transform="scale(0.5)"><path/></g></g>'
+    )
 
 
 def test_path():
@@ -71,5 +85,7 @@ def test_path():
     assert p["stroke"] == "red"
     p = p.set_stroke_width("3")
     assert p["stroke-width"] == "3"
+    p = p.set_stroke_linecap("round")
+    assert p["stroke-linecap"] == "round"
     p = p.set_fill_color("blue")
     assert p["fill"] == "blue"
