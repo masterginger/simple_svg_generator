@@ -5,7 +5,7 @@ from simple_svg_generator.svg_element import SVGElement
 class svg(SVGElement):
     def __init__(self) -> None:
         super().__init__()
-        self._element.attributes["xmlns"] = "http://www.w3.org/2000/svg"
+        self._attributes["xmlns"] = "http://www.w3.org/2000/svg"
 
     def set_dimensions(self, width: str, height: str) -> Self:
         return self.set_attributes(dict(width=width, height=height))

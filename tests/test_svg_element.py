@@ -8,12 +8,12 @@ from simple_svg_generator.svg_element import SVGElement
 def test_svg_element():
     e = SVGElement("svg")
     ee = SVGElement("g")
-    assert e._element.tagName == "svg"
+    assert e._tag_name == "svg"
     assert e.xml == "<svg/>"
     assert e.pretty_xml == "<svg/>\n"
     e = e.add_child(ee)
-    assert len(e._element.childNodes) == 1
-    assert e._element.childNodes[0].tagName == "g"
+    assert len(e._children) == 1
+    assert e._children[0]._tag_name == "g"
     assert e.xml == "<svg><g/></svg>"
     assert (
         e.pretty_xml
@@ -27,16 +27,16 @@ def test_svg_element():
 def test_set_attributes():
     e = SVGElement("svg")
     e = e.set_attributes({"a": "b", "c": "d"})
-    assert e._element.attributes["a"].value == "b"
-    assert e._element.attributes["c"].value == "d"
+    assert e._attributes["a"] == "b"
+    assert e._attributes["c"] == "d"
     e = e.set_attribute("x", "y")
-    assert e._element.attributes["x"].value == "y"
+    assert e._attributes["x"] == "y"
     assert e["x"] == "y"
 
 
 def test_svg():
     s = svg()
-    assert s._element.tagName == "svg"
+    assert s._tag_name == "svg"
     with pytest.raises(KeyError):
         s["width"]
     with pytest.raises(KeyError):
@@ -51,7 +51,7 @@ def test_svg():
 
 def test_g():
     ge = g()
-    assert ge._element.tagName == "g"
+    assert ge._tag_name == "g"
     ge = ge.add_transform("rotate(4, 5, 6)")
     assert ge["transform"] == "rotate(4, 5, 6)"
     ge = ge.set_transform("rotate(1, 2, 3)")
@@ -62,7 +62,7 @@ def test_g():
 
 def test_path():
     p = path()
-    assert p._element.tagName == "path"
+    assert p._tag_name == "path"
     p = p.set_transform("rotate(1, 2, 3)")
     assert p["transform"] == "rotate(1, 2, 3)"
     p = p.set_definition("M 1 2")
