@@ -13,11 +13,9 @@ class SVGElement:
         self._attributes: Dict[str, str] = {}
         self._tag_name = tag_name if tag_name else self.__class__.__name__
         self._children: List["SVGElement"] = []
-        self._element: Optional[Element] = None
 
     def _copy(self) -> Self:
         new: Self = copy.copy(self)
-        new._element = None
         new._attributes = copy.copy(self._attributes)
         new._children = copy.copy(self._children)
         return new
@@ -40,19 +38,18 @@ class SVGElement:
         new._children.append(element)
         return new
 
-    def _build_element_if_needed(self) -> Element:
-        if self._element is None:
-            self._element = self.__class__.xml_doc.createElement(self._tag_name)
-            for key, value in self._attributes.items():
-                self._element.attributes[key] = value
-            for child in self._children:
-                self._element.appendChild(child._build_element_if_needed())
-        return self._element
+    def _build_element(self) -> Element:
+        element = self.__class__.xml_doc.createElement(self._tag_name)
+        for key, value in self._attributes.items():
+            element.attributes[key] = value
+        for child in self._children:
+            element.appendChild(child._build_element())
+        return element
 
     @property
     def xml(self) -> str:
-        return self._build_element_if_needed().toxml()
+        return self._build_element().toxml()
 
     @property
     def pretty_xml(self) -> str:
-        return self._build_element_if_needed().toprettyxml()
+        return self._build_element().toprettyxml()

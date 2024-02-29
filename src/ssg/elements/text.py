@@ -24,18 +24,17 @@ class text(SVGElement):
             self._children.append(text_path.set_attribute("id", text_path_uuid))
             self._children.append(text_path_element)
 
-    def _build_element_if_needed(self) -> Element:
-        if self._element is None:
-            text_node = self.__class__.xml_doc.createTextNode(self._text)
-            self._element = super()._build_element_if_needed()
-            if len(self._children) == 0:
-                # Plain text
-                self._element.appendChild(text_node)
-            else:
-                # The second child is the textPath element
-                self._children[1]._build_element_if_needed().appendChild(text_node)
+    def _build_element(self) -> Element:
+        text_node = self.__class__.xml_doc.createTextNode(self._text)
+        element = super()._build_element()
+        if len(self._children) == 0:
+            # Plain text
+            element.appendChild(text_node)
+        else:
+            # The second child is the textPath element
+            element.childNodes[1].appendChild(text_node)
 
-        return self._element
+        return element
 
     def _copy(self) -> Self:
         copied = super()._copy()

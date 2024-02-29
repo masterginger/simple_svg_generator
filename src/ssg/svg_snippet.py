@@ -5,15 +5,18 @@ from ssg.svg_element import SVGElement
 
 class SVGSnippet(SVGElement):
     def __init__(self, svg_snippet: str) -> None:
-        svg_element = cast(Element, parseString(svg_snippet).documentElement)
-        super().__init__(svg_element.tagName)
-        self._element = svg_element
+        self._cached_element = cast(Element, parseString(svg_snippet).documentElement)
+        self._svg_snippet = svg_snippet
+        super().__init__("__snippet__")
+
+    def _build_element(self) -> Element:
+        return cast(Element, parseString(self._svg_snippet).documentElement)
 
     def _copy(self) -> Self:
         raise NotImplementedError("SVGSnippet is entirely immutable")
 
     def __getitem__(self, key: str) -> str:
-        return cast(Element, self._element).attributes[key].value
+        return cast(Element, self._cached_element).attributes[key].value
 
     def set_attributes(self, attributes: Dict[str, str]) -> Self:
         raise NotImplementedError("SVGSnippet is entirely immutable")

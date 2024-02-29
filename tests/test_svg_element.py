@@ -10,8 +10,7 @@ from unittest.mock import patch
 
 def test_svg_snippet():
     s = SVGSnippet('<g transform="scale(0.5)"><path/></g>')
-    assert s._element is not None
-    assert s._tag_name == "g"
+    assert s._tag_name == "__snippet__"
     assert s["transform"] == "scale(0.5)"
     with pytest.raises(NotImplementedError):
         s._copy()
@@ -135,3 +134,14 @@ def test_text():
             t.xml
             == '<text font-family="Menlo" font-size="10"><path d="M 0 1 L 2 3" id="abc123"/><textPath href="#abc123" startOffset="50%" text-anchor="middle">abc</textPath></text>'
         )
+
+
+def test_copy():
+    tree = g().add_child(path().set_definition("L 1 2"))
+    canvas = g()
+    for i in range(2):
+        canvas = canvas.add_child(tree.rotate(i * 90))
+    assert (
+        canvas.xml
+        == '<g><g transform="rotate(0)"><path d="L 1 2"/></g><g transform="rotate(90)"><path d="L 1 2"/></g></g>'
+    )
