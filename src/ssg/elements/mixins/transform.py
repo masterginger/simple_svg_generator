@@ -9,6 +9,16 @@ class TransformMixin(SVGElement):
     def translate(self, tx: float, ty: float) -> Self:
         return self.add_transform(f"translate({tx}, {ty})")
 
+    def rotate(
+        self,
+        degrees: float,
+        origin_x: Optional[float] = None,
+        origin_y: Optional[float] = None,
+    ) -> Self:
+        if origin_x is not None and origin_y is not None:
+            return self.add_transform(f"rotate({degrees}, {origin_x}, {origin_y})")
+        return self.add_transform(f"rotate({degrees})")
+
     def scale(self, sx: float, sy: Optional[float] = None) -> Self:
         if sy is not None:
             return self.add_transform(f"scale({sx}, {sy})")

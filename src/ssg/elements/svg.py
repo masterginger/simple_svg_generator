@@ -1,8 +1,9 @@
 from typing import Self
+from ssg.elements.mixins.transform import TransformMixin
 from ssg.svg_element import SVGElement
 
 
-class svg(SVGElement):
+class svg(TransformMixin, SVGElement):
     def __init__(self) -> None:
         super().__init__()
         self._attributes["xmlns"] = "http://www.w3.org/2000/svg"
