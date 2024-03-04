@@ -28,3 +28,7 @@ def sun() -> SVGElement:
         .add_child(transform)
     )
     return s
+
+
+def gen():
+    return sun()

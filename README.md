@@ -17,7 +17,7 @@ pip install git+https://github.com/masterginger/simple_svg_generator.git
 
 ## See the demo
 ```
-python -m ssg gen examples.heart --show
+python -m ssg gen examples --show
 ```
 
 ## Use it in your code
