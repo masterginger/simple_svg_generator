@@ -1,3 +1,4 @@
+import cairosvg
 import importlib
 import os
 import tempfile
@@ -7,7 +8,7 @@ from ssg.svg_element import SVGElement
 
 
 @task
-def gen(c, name, show=False):
+def gen(c, name, show=False, png=False):
     try:
         module = importlib.import_module(name)
     except ModuleNotFoundError:
@@ -18,5 +19,12 @@ def gen(c, name, show=False):
         with open(svg_filename, "wt") as f:
             f.write(svg_element.pretty_xml)
         os.system(f"open {svg_filename}")
+    elif png:
+        svg_filename = tempfile.mktemp(".svg")
+        png_filename = tempfile.mktemp(".png")
+        with open(svg_filename, "wt") as f:
+            f.write(svg_element.pretty_xml)
+        cairosvg.svg2png(url=svg_filename, write_to=png_filename)
+        os.system(f"open {png_filename}")
     else:
         print(svg_element.pretty_xml)

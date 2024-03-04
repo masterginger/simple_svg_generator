@@ -26,6 +26,8 @@ authors = []
 
 dependencies = [
     "invoke==2.2.0",
+    # micromamba install cairosvg -c conda-forge
+    # "cairosvg",
 ]
 
 [project.optional-dependencies]
