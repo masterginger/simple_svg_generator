@@ -30,5 +30,5 @@ def sun() -> SVGElement:
     return s
 
 
-def gen():
+def gen(args=""):
     return sun()
